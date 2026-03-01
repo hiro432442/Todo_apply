@@ -1,26 +1,43 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-background: #faf9f6;
+  --color-foreground: #4a4a4a;
+  
+  --color-primary: #e6c8c8; /* Dusty Pink */
+  --color-primary-hover: #dcbaba;
+  --color-secondary: #cde4d6; /* Sage Green */
+  --color-accent: #d4e2f1; /* Pale Blue */
+  
+  --color-card: #ffffff;
+  --color-border: #f0ebeb;
+  --color-muted: #9e9e9e;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --rounded-xl: 1rem;
+  --rounded-2xl: 1.5rem;
+  
+  --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.05);
+  --shadow-soft-md: 0 8px 30px rgba(0, 0, 0, 0.08);
+
+  --font-sans: 'Zen Kaku Gothic New', var(--font-geist-sans), sans-serif;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom Scrollbar for a cleaner look */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 10px;
 }
