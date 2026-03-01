@@ -2,15 +2,21 @@ import { sql } from '@vercel/postgres';
 import { NextResponse } from 'next/server';
 import webpush from 'web-push';
 
-// Configuration for web-push
-webpush.setVapidDetails(
-    'mailto:support@example.com',
-    process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY || '',
-    process.env.VAPID_PRIVATE_KEY || ''
-);
-
 export async function POST(request: Request) {
     try {
+        // Initialize web-push only when the API is actually called
+        // This prevents build errors during Next.js static generation when env vars might be missing
+        if (!process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY || !process.env.VAPID_PRIVATE_KEY) {
+            console.error('VAPID keys are missing');
+            return NextResponse.json({ error: 'Server configuration error' }, { status: 500 });
+        }
+
+        webpush.setVapidDetails(
+            'mailto:support@example.com',
+            process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY,
+            process.env.VAPID_PRIVATE_KEY
+        );
+
         // 1. Verify the authorization header matches our CRON_SECRET
         const authHeader = request.headers.get('authorization');
         if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
