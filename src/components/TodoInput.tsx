@@ -48,7 +48,7 @@ export function TodoInput({ onAdd }: TodoInputProps) {
                 <input
                     type="time"
                     value={time}
-                    className="outline-none text-muted text-sm bg-transparent cursor-pointer w-auto"
+                    className="outline-none text-muted text-sm bg-transparent cursor-pointer min-w-[90px] flex-shrink-0 text-center"
                     title="通知時間を設定（任意）"
                     onChange={(e) => setTime(e.target.value)}
                 />
