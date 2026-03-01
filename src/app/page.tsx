@@ -68,6 +68,7 @@ export default function Home() {
                 id={todo.id}
                 text={todo.text}
                 completed={todo.completed}
+                notifyAt={todo.notifyAt}
                 onToggle={toggleTodo}
                 onDelete={deleteTodo}
               />
