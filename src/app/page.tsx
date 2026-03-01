@@ -5,9 +5,12 @@ import { TodoInput } from "@/components/TodoInput";
 import { TodoItem } from "@/components/TodoItem";
 import { Filter, FilterType } from "@/components/Filter";
 import { useTodos } from "@/hooks/useTodos";
+import { usePushNotifications } from "@/hooks/usePushNotifications";
+import { Bell, BellOff } from "lucide-react";
 
 export default function Home() {
-  const { todos, addTodo, toggleTodo, deleteTodo, isLoaded } = useTodos();
+  const { todos, addTodo, toggleTodo, deleteTodo, isLoaded, deviceId } = useTodos();
+  const { isSubscribed, subscribeToPush } = usePushNotifications();
   const [filter, setFilter] = useState<FilterType>("all");
 
   if (!isLoaded) {
@@ -22,8 +25,23 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-background pb-20 pt-10 px-4 sm:px-6">
-      <div className="max-w-md mx-auto">
-        <header className="mb-10 text-center">
+      <div className="max-w-md mx-auto relative">
+        {!isSubscribed && (
+          <button
+            onClick={subscribeToPush}
+            className="absolute top-0 right-0 flex items-center gap-1.5 px-3 py-1.5 text-xs rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-colors"
+          >
+            <BellOff size={14} />
+            通知をオン
+          </button>
+        )}
+        {isSubscribed && (
+          <div className="absolute top-0 right-0 flex items-center gap-1.5 px-3 py-1.5 text-xs rounded-full bg-green-50 text-green-600">
+            <Bell size={14} />
+            通知オン
+          </div>
+        )}
+        <header className="mb-10 text-center pt-8">
           <h1 className="text-3xl font-bold text-foreground mb-2">My Tasks</h1>
           <p className="text-muted text-sm tracking-wide">今日も素敵な一日になりますように✨</p>
         </header>
