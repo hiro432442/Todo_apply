@@ -47,11 +47,10 @@ export function TodoInput({ onAdd }: TodoInputProps) {
                 <div className="w-[1px] bg-gray-100 mx-1"></div>
                 <input
                     type="time"
+                    value={time}
                     className="outline-none text-muted text-sm bg-transparent cursor-pointer w-auto"
                     title="通知時間を設定（任意）"
-                    onChange={(e) => {
-                        // TODO: capture time in state
-                    }}
+                    onChange={(e) => setTime(e.target.value)}
                 />
             </div>
             <button
